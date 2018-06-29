@@ -6,7 +6,7 @@ import classes from "./NavigationItems.css";
 
 const NavigationItems = props => {
   return (
-    <ul className={classes.NavvigationItems}>
+    <ul className={classes.NavigationItems}>
       <NavigationItem link="/" active>
         Burger Builder
       </NavigationItem>
