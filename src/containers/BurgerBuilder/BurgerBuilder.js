@@ -14,7 +14,7 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandlers";
 
-import * as actionTypes from "../../store/actions";
+import * as burgerBulderActions from "../../store/actions/index";
 
 // const INGREDIENTS_PRICES = {
 //   salad: 0.5,
@@ -185,15 +185,17 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onIngredientAdded: ingName =>
-      dispatch({
-        type: actionTypes.ADD_INGREDIENT,
-        ingredientName: ingName
-      }),
+      dispatch(burgerBulderActions.addIngredient(ingName)),
+    // dispatch({
+    //   type: actionTypes.ADD_INGREDIENT,
+    //   ingredientName: ingName
+    // }),
     onIngredientRemoved: ingName =>
-      dispatch({
-        type: actionTypes.REMOVE_INGREDIENT,
-        ingredientName: ingName
-      })
+      dispatch(burgerBulderActions.removeIngredient(ingName))
+    // dispatch({
+    //   type: actionTypes.REMOVE_INGREDIENT,
+    //   ingredientName: ingName
+    // })
   };
 };
 
