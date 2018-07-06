@@ -28,14 +28,15 @@ class BurgerBuilder extends Component {
     // ingredients: {},
     // totalPrice: 4,
     // purchasable: false,
-    purchashing: false,
-    loading: false,
-    error: false
+    purchashing: false
+    // loading: false,
+    // error: false
   };
 
   componentDidMount() {
     console.log(this.props);
-    // for next chapter - redux - with asynchronous
+    // redux-thunk - asynchronous action
+    this.props.onInitIngredients();
     // axios
     //   .get("https://react-burger-app-54696.firebaseio.com/ingredients.json")
     //   .then(response => {
@@ -129,7 +130,7 @@ class BurgerBuilder extends Component {
     }
 
     let orderSummary = null;
-    let burger = this.state.error ? (
+    let burger = this.props.error ? (
       <p>Ingredients can't be loaded!</p>
     ) : (
       <Spinner />
@@ -160,9 +161,9 @@ class BurgerBuilder extends Component {
       );
     }
 
-    if (this.state.loading) {
-      orderSummary = <Spinner />;
-    }
+    // if (this.state.loading) {
+    //   orderSummary = <Spinner />;
+    // }
 
     return (
       <Aux>
@@ -179,7 +180,11 @@ class BurgerBuilder extends Component {
 }
 
 const mapStateToProps = state => {
-  return { ings: state.ingredients, price: state.totalPrice };
+  return {
+    ings: state.ingredients,
+    price: state.totalPrice,
+    error: state.error
+  };
 };
 
 const mapDispatchToProps = dispatch => {
@@ -191,11 +196,12 @@ const mapDispatchToProps = dispatch => {
     //   ingredientName: ingName
     // }),
     onIngredientRemoved: ingName =>
-      dispatch(burgerBulderActions.removeIngredient(ingName))
+      dispatch(burgerBulderActions.removeIngredient(ingName)),
     // dispatch({
     //   type: actionTypes.REMOVE_INGREDIENT,
     //   ingredientName: ingName
     // })
+    onInitIngredients: () => dispatch(burgerBulderActions.initIngredients())
   };
 };
 
